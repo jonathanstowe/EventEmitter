@@ -14,5 +14,6 @@
   },
   "support" : {
     "source" : "git://github.com/jonathanstowe/EventEmitter.git"
-  }
+  },
+  "source-url" : "https://github.com/jonathanstowe/EventEmitter.git"
 }
