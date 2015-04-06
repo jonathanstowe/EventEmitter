@@ -29,4 +29,6 @@ lives_ok { $obj.emit('test', "yahaha") }, "emit to 'test' works";
 ok($test_handled, "and test handler was right");
 ok(!$boom_handled, "and the other one wasn't called");
 
+dies_ok({ $obj.on("foo","bar") }, "dies with a non-code argument");
+
 done();
