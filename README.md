@@ -13,9 +13,9 @@ the core Supply class.
 Assuming you have a working perl6 installation you should be able to
 install this with *ufo* :
 
-   ufo
-   make test
-   make install
+    ufo
+    make test
+    make install
 
 *ufo* can be installed with *panda* for rakudo:
 
