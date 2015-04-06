@@ -19,17 +19,17 @@ install this with *ufo* :
 
 *ufo* can be installed with *panda* for rakudo:
 
-   panda install ufo
+    panda install ufo
 
 Or you can install directly with "panda":
 
-   # From the source directory
+    # From the source directory
    
-   panda install .
+    panda install .
 
-   # Remove installation
+    # Remove installation
 
-   panda install EventEmitter
+    panda install EventEmitter
 
 Other install mechanisms may be become available in the future.
 
