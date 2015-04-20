@@ -2,6 +2,9 @@
 
 Perl6 roles to sugar events through Supplies
 
+This has been obsoleted by Event::Emitter (https://github.com/tony-o/perl6-event-emitter) which can provide a similar interface but is more flexible and well
+thought out.
+
 ## Description
 
 This provides a set of convenience roles that allow an object to have
