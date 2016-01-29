@@ -1,4 +1,3 @@
-# ft: perl6
 
 use v6;
 
@@ -54,40 +53,41 @@ publish them.
 
 =end pod
 
-role EventEmitter::Typed:ver<v0.0.1>:auth<github:jonathanstowe> {
-   has Supply %!supplies;
-   has Supply $!supply;
+role EventEmitter::Typed:ver<0.0.2>:auth<github:jonathanstowe> {
+    has Supply   %!supplies;
+    has Supplier $!supplier;
 
-   #|  Add a subscription to the "event type". Returning the L<doc:Tap>
-   #|  object.  The callback should be a L<doc:Code> object that will receive
-   #|  a single positional argument in C<$_>
-   method on( Mu:U $event, &callback --> Tap ) {
-      my $name = $event.^name;
-      if ( not %!supplies{$name}:exists ) {
-         %!supplies{$name} = self!get_supply($event);
-      }
-      %!supplies{$name}.tap(&callback);
-   }
+    #|  Add a subscription to the "event type". Returning the L<doc:Tap>
+    #|  object.  The callback should be a L<doc:Code> object that will receive
+    #|  a single positional argument in C<$_>
+    method on( Mu:U $event, &callback --> Tap ) {
+        my $name = $event.^name;
+        if ( not %!supplies{$name}:exists ) {
+            %!supplies{$name} = self!get_supply($event);
+        }
+        %!supplies{$name}.tap(&callback);
+    }
 
-   method !get_supply(Mu:U $class --> Supply) {
-      if not $!supply.defined {
-         $!supply = Supply.new;
-      }
+    method !get_supply(Mu:U $class --> Supply) {
+        if not $!supplier.defined {
+            $!supplier = Supplier.new;
+        }
 
-      $!supply.grep($class);
-   }
+        $!supplier.Supply.grep($class);
+    }
 
-   #| Publish an event object. If there are no subscribers then this is a
-   #| no-op.  The payload can be any type - it is a matter of contract
-   #| between publisher and subscriber to ensure it is understood by both
-   #| parties.
-   method emit(Mu:D $payload --> Bool ) {
-      my $rc = False;
+    #| Publish an event object. If there are no subscribers then this is a
+    #| no-op.  The payload can be any type - it is a matter of contract
+    #| between publisher and subscriber to ensure it is understood by both
+    #| parties.
+    method emit(Mu:D $payload --> Bool ) {
+        my $rc = False;
 
-      if ( $!supply.defined ) {
-         $rc = True;
-         $!supply.emit($payload);
-      }
-      return $rc;
-   }
+        if ( $!supplier.defined ) {
+            $rc = True;
+            $!supplier.emit($payload);
+        }
+        return $rc;
+    }
 }
+# vim: expandtab shiftwidth=4 ft=perl6

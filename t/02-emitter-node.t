@@ -18,15 +18,15 @@ my $boom_handled = False;
 
 ok(my $tap = $obj.on('test', { pass("event got handled"); $test_handled = True  }), "set handler on 'test' event");
 
-isa_ok($tap, Tap, "on returned a Tap okay");
+isa-ok($tap, Tap, "on returned a Tap okay");
 
 $obj.on("boom", { fail("different named event didn't get handled"); $boom_handled = True });
 
-lives_ok { $obj.emit('test', "yahaha") }, "emit to 'test' works";
+lives-ok { $obj.emit('test', "yahaha") }, "emit to 'test' works";
 
 ok($test_handled, "and test handler was right");
 ok(!$boom_handled, "and the other one wasn't called");
 
-dies_ok({ $obj.on("foo","bar") }, "dies with a non-code argument");
+dies-ok({ $obj.on("foo","bar") }, "dies with a non-code argument");
 
 done-testing();

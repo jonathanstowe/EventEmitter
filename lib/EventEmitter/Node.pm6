@@ -1,6 +1,4 @@
-# ft: perl6
-
-use v6;
+use v6.c;
 
 =begin pod
 
@@ -47,30 +45,32 @@ publish them.
 
 =end pod
 
-role EventEmitter::Node:ver<v0.0.1>:auth<github:jonathanstowe> {
-   has Supply %!supplies;
+role EventEmitter::Node:ver<0.0.2>:auth<github:jonathanstowe> {
+    has Supplier $!supplier = Supplier.new;
+    has Supply %!supplies;
 
-   #|  Add a subscription to the named "event". Returning the L<doc:Tap>
-   #|  object.  The callback should be a L<doc:Code> object that will receive
-   #|  a single positional argument in C<$_>
-   method on( Str $event, &callback --> Tap ) {
-      if ( not %!supplies{$event}:exists ) {
-         %!supplies{$event} = Supply.new
-      }
-      %!supplies{$event}.tap(&callback);
-   }
+    #|  Add a subscription to the named "event". Returning the L<doc:Tap>
+    #|  object.  The callback should be a L<doc:Code> object that will receive
+    #|  a single positional argument in C<$_>
+    method on( Str $event, &callback --> Tap ) {
+        if ( not %!supplies{$event}:exists ) {
+            %!supplies{$event} = $!supplier.Supply.grep({ $_[0] eq $event }).map({$_[1]});
+        }
+        %!supplies{$event}.tap(&callback);
+    }
+    
+    #| Publish the named event. If there are no subscribers then this is a
+    #| no-op.  The payload can be any type - it is a matter of contract
+    #| between publisher and subscriber to ensure it is understood by both
+    #| parties.
+    method emit(Str $event, Any $payload --> Bool ) {
+        my $rc = False;
 
-   #| Publish the named event. If there are no subscribers then this is a
-   #| no-op.  The payload can be any type - it is a matter of contract
-   #| between publisher and subscriber to ensure it is understood by both
-   #| parties.
-   method emit(Str $event, Any $payload --> Bool ) {
-      my $rc = False;
-
-      if ( %!supplies{$event}:exists ) {
-         $rc = True;
-         %!supplies{$event}.emit($payload);
-      }
-      return $rc;
-   }
+        if ( %!supplies{$event}:exists ) {
+            $rc = True;
+            $!supplier.emit([$event, $payload]);
+        }
+        return $rc;
+    }
 }
+# vim: expandtab shiftwidth=4 ft=perl6
