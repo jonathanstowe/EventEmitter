@@ -2,8 +2,6 @@
 
 use v6;
 
-use lib "lib";
-
 use Test;
 
 use EventEmitter::Typed;
@@ -40,4 +38,4 @@ ok(!$boom_handled, "and the other one wasn't called");
 dies_ok({ $obj.on(MyEvent,"bar") }, "dies with a non-code argument");
 dies_ok({ $obj.on("foo",{ say $_ }) }, "dies with a non-type argument");
 
-done();
+done-testin();

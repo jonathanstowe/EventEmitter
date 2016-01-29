@@ -2,8 +2,6 @@
 
 use v6;
 
-use lib "lib";
-
 use Test;
 
 use EventEmitter::Node;
@@ -31,4 +29,4 @@ ok(!$boom_handled, "and the other one wasn't called");
 
 dies_ok({ $obj.on("foo","bar") }, "dies with a non-code argument");
 
-done();
+done-testing();
