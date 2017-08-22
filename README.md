@@ -2,8 +2,9 @@
 
 Perl6 roles to sugar events through Supplies
 
-This has been obsoleted by Event::Emitter (https://github.com/tony-o/perl6-event-emitter) which can provide a similar interface but is more flexible and well
-thought out.
+This has been obsoleted by Event::Emitter
+(https://github.com/tony-o/perl6-event-emitter) which can provide a
+similar interface but is more flexible and well thought out.
 
 ## Description
 
@@ -19,17 +20,15 @@ The two roles it currenty provides are:
 ## Installation
 
 Assuming you have a working Rakudo Perl 6 installation you should be able to
-install this with *panda* :
+install this with *zef* :
 
     # From the source directory
    
-    panda install .
+    zef install .
 
     # Remove installation
 
-    panda install EventEmitter
-
-This should work equally well with *zef* but I may not have tested it.
+    zef install EventEmitter
 
 ## Support
 
